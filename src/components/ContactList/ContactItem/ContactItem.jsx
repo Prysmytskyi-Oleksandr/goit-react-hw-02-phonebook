@@ -1,14 +1,15 @@
-// import styles from '../contactList.module.css';
+import PropTypes from 'prop-types';
+import styles from '../contactList.module.css';
 
 const ContactItem = ({ contact, deleteContact }) => {
   return (
-    <li key={contact.id}>
+    <li key={contact.id} className={styles.contact_item}>
       <p>
         {contact.name}: {contact.number}
       </p>
 
       <button
-        // className={styles.button}
+        className={styles.button}
         type="button"
         onClick={() => deleteContact(contact.id)}
       >
@@ -18,14 +19,12 @@ const ContactItem = ({ contact, deleteContact }) => {
   );
 };
 
-export default ContactItem;
+ContactItem.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    number: PropTypes.string,
+  }).isRequired,
+};
 
-// export default function ContactItem({ contact }) {
-//   return (
-//     <li key={contact.id}>
-//       <p>
-//         {contact.name}: {contact.number}
-//       </p>
-//     </li>
-//   );
-// }
+export default ContactItem;

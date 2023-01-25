@@ -11,11 +11,14 @@ export class App extends Component {
   };
 
   addContact = ({ name, number }) => {
-    console.log({ name, number });
-    const newContact = { id: nanoid(), name, number };
-    this.setState(({ contacts: prevState }) => ({
-      contacts: [...prevState, newContact],
-    }));
+    if (this.state.contacts.find(contact => contact.name === name)) {
+      return alert(`${name} is already in contacts.`);
+    } else {
+      const newContact = { id: nanoid(), name, number };
+      this.setState(({ contacts: prevState }) => ({
+        contacts: [...prevState, newContact],
+      }));
+    }
   };
 
   deleteContact = contactId => {
@@ -39,7 +42,10 @@ export class App extends Component {
   render() {
     return (
       <div>
+        <h1>Phonebook</h1>
         <Form onSubmit={this.addContact} />
+
+        <h2>Contacts</h2>
         <Filter filter={this.state.filter} onChangeFilter={this.addFilter} />
 
         <ContactList
